@@ -4,10 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../data/model/article_model.dart';
 import '../../domain/entities/article.dart';
 
 class ArticleDetailView extends StatelessWidget {
-  final Article article;
+  final ArticleModel article;
 
   const ArticleDetailView({Key? key, required this.article}) : super(key: key);
 

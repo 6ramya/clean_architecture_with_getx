@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'article_model.dart';
 
 class NewsModel{
@@ -11,7 +13,7 @@ class NewsModel{
     return NewsModel(
       status: json['status'],
       totalResults: json['totalResults'],
-      articles: List.from((json['articles']).map((e) => ArticleModel.fromJson(e)))
-    );
+      articles: List.from((json['articles']).map((e) => ArticleModel.fromJson(e))
+    ));
   }
 }

@@ -10,7 +10,7 @@ class AppRoutes{
   List<GetPage> pages=[
     GetPage(name: '/', page: ()=>BreakingNewsHeadline(),binding: HomeBinding()),
     GetPage(name: '/articleDetail', page: ()=>ArticleDetailView(article: Get.arguments,)),
-    GetPage(name: '/saveArticle', page: ()=>SavedArticleView(article: Get.arguments,))
+    GetPage(name: '/saveArticle', page: ()=>SavedArticleView(),binding: HomeBinding())
   ];
 
 }

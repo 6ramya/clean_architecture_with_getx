@@ -1,7 +1,7 @@
 import '../../domain/entities/source.dart';
 
 class SourceModel extends Source{
-  final dynamic id;
+  final Object? id;
   final String? name;
 
   const SourceModel({this.name,this.id}):
@@ -9,8 +9,8 @@ class SourceModel extends Source{
 
   factory SourceModel.fromJson(Map<String,dynamic> json){
     return SourceModel(
-      id: json['id'],
-      name: json['name']
+      // id: json['id']!=null?json['id']:null,
+      name: json['name']!=null?json['name']:null
     );
   }
 }

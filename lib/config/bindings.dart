@@ -2,6 +2,7 @@ import 'package:clean_architecture_with_getx/data/datasources/local/database.dar
 import 'package:clean_architecture_with_getx/data/datasources/remote/news_api_service.dart';
 import 'package:clean_architecture_with_getx/data/repositories/article_repository_impl.dart';
 import 'package:clean_architecture_with_getx/domain/repositories/article_repository.dart';
+import 'package:clean_architecture_with_getx/domain/usecases/deleteArticleUseCase.dart';
 import 'package:clean_architecture_with_getx/domain/usecases/get_article_usecase.dart';
 import 'package:clean_architecture_with_getx/domain/usecases/get_saved_article_usecase.dart';
 import 'package:clean_architecture_with_getx/domain/usecases/save_article_usecase.dart';
@@ -22,7 +23,8 @@ class HomeBinding implements Bindings{
     final articleUseCase=Get.put<GetArticlesUseCase>(GetArticlesUseCase(articleRepo));
     final saveArticleUseCase=Get.put<SaveArticleUseCase>(SaveArticleUseCase(articleRepo));
     final getSavedArticleUseCase=Get.put<GetSavedArticleUseCase>(GetSavedArticleUseCase(articleRepo));
+    final deleteArticleUseCase=Get.put<DeleteArticleUseCase>(DeleteArticleUseCase(articleRepo));
     Get.put<RemoteArticleViewController>(RemoteArticleViewController(articleUseCase));
-    Get.put<LocalArticleViewController>(LocalArticleViewController(saveArticleUseCase,getSavedArticleUseCase));
+    Get.put<LocalArticleViewController>(LocalArticleViewController(saveArticleUseCase,getSavedArticleUseCase,deleteArticleUseCase));
   }
 }

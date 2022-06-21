@@ -8,6 +8,7 @@ import 'package:clean_architecture_with_getx/domain/repositories/article_reposit
 import 'package:dio/dio.dart';
 
 import '../datasources/local/database.dart';
+import '../model/article_model.dart';
 
 class ArticleRepositoryImpl implements ArticleRepository {
   final NewsApiService _newsApiService;
@@ -16,7 +17,7 @@ class ArticleRepositoryImpl implements ArticleRepository {
   ArticleRepositoryImpl(this._newsApiService,this._appDatabase);
 
   @override
-  Future<DataState<List<Article>>> getAllArticles(ArticlesParams params) async {
+  Future<DataState<List<ArticleModel>>> getAllArticles(ArticlesParams params) async {
     try {
       final httpResponse = await _newsApiService.getBreakingNewsHeadlines(
           country: params.country,
@@ -39,12 +40,17 @@ class ArticleRepositoryImpl implements ArticleRepository {
   }
 
   @override
-  Future<int> SaveArticle({Article? article}) async{
+  Future<int> SaveArticle({ArticleModel? article}) async{
     return _appDatabase.insertArticle(article!);
   }
 
   @override
   Future<List<Map<String, Object?>>> getSavedArticles() {
     return _appDatabase.getAllSavedArticles();
+  }
+
+  @override
+  Future<int> deleteArticle(int id) {
+    return _appDatabase.deleteArticle(id);
   }
 }

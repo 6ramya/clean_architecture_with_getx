@@ -1,5 +1,6 @@
 import 'package:clean_architecture_with_getx/data/datasources/local/database.dart';
 import 'package:clean_architecture_with_getx/presentation/controller/local_article/local_article_controller.dart';
+import 'package:clean_architecture_with_getx/presentation/widgets/article_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -56,8 +57,9 @@ class _BreakingNewsHeadlineState extends State<BreakingNewsHeadline> {
       actions:[
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: IconButton(icon: const Icon(Icons.bookmark), onPressed: () {
-            // Get.toNamed('/saveArticle',arguments: localController.getSavedArticles());
+          child: IconButton(icon: const Icon(Icons.bookmark), onPressed: ()async {
+            await localController.getSavedArticles();
+            Get.toNamed('/saveArticle');
           },
           ),
         )
@@ -70,7 +72,7 @@ class _BreakingNewsHeadlineState extends State<BreakingNewsHeadline> {
           controller: scrollController,
           children: [
             ...List<Widget>.from(controller.articles!
-                .map((e) => Builder(builder: (context) => _buildArticle(e)))),
+                .map((e) => Builder(builder: (context) => ArticleWidget(article: e,)))),
             if (controller.moreData.value) ...[
               const Center(child: CircularProgressIndicator())
             ] else ...[
@@ -80,62 +82,62 @@ class _BreakingNewsHeadlineState extends State<BreakingNewsHeadline> {
         ));
   }
 
-  Widget _buildArticle(Article article) {
-    return
-      GestureDetector(
-        onTap: ()=>_onTap(article),
-        child: Container(
-        height: MediaQuery.of(context).size.width / 3,
-        color: Colors.grey[600],
-        child: Card(
-          elevation: 3,
-          borderOnForeground: true,
-          color: Colors.teal[50],
-          // surfaceTintColor: Colors.yellow,
-          // shadowColor: Colors.blue,
-            shape: const RoundedRectangleBorder(side:BorderSide(color: Colors.teal)),
-            margin: const EdgeInsets.all(3),
-            child: Row(
-              children: [
-                _buildImage(article),
-                Expanded(
-                    child: Text(
-                  '${article.title}',
-                ))
-              ],
-            )),
-    ),
-      );
-  }
+  // Widget _buildArticle(Article article) {
+  //   return
+  //     GestureDetector(
+  //       onTap: ()=>_onTap(article),
+  //       child: Container(
+  //       height: MediaQuery.of(context).size.width / 3,
+  //       color: Colors.grey[600],
+  //       child: Card(
+  //         elevation: 3,
+  //         borderOnForeground: true,
+  //         color: Colors.teal[50],
+  //         // surfaceTintColor: Colors.yellow,
+  //         // shadowColor: Colors.blue,
+  //           shape: const RoundedRectangleBorder(side:BorderSide(color: Colors.teal)),
+  //           margin: const EdgeInsets.all(3),
+  //           child: Row(
+  //             children: [
+  //               _buildImage(article),
+  //               Expanded(
+  //                   child: Text(
+  //                 '${article.title}',
+  //               ))
+  //             ],
+  //           )),
+  //   ),
+  //     );
+  // }
 
-  Widget _buildImage(Article article){
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(3.0),
-        child: Container(
-          height: double.maxFinite,
-          width: MediaQuery.of(context).size.width / 2.8,
-          child: Image.network(
-            '${article.urlToImage}',
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) {
-              return Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black)),
-                  child: const Center(
-                      child: Text(
-                        '404\n Not Found',
-                        textAlign: TextAlign.center,
-                      )));
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _onTap(Article article){
-    Get.toNamed('/articleDetail',arguments:article);
-  }
+  // Widget _buildImage(Article article){
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: ClipRRect(
+  //       borderRadius: BorderRadius.circular(3.0),
+  //       child: Container(
+  //         height: double.maxFinite,
+  //         width: MediaQuery.of(context).size.width / 2.8,
+  //         child: Image.network(
+  //           '${article.urlToImage}',
+  //           fit: BoxFit.cover,
+  //           errorBuilder: (_, __, ___) {
+  //             return Container(
+  //                 decoration: BoxDecoration(
+  //                     border: Border.all(color: Colors.black)),
+  //                 child: const Center(
+  //                     child: Text(
+  //                       '404\n Not Found',
+  //                       textAlign: TextAlign.center,
+  //                     )));
+  //           },
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+  //
+  // void _onTap(Article article){
+  //   Get.toNamed('/articleDetail',arguments:article);
+  // }
 }

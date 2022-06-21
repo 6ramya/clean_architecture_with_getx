@@ -45,7 +45,7 @@ class AppDatabase{
     print('database created');
   }
 
-  Future<int> insertArticle(Article article)async{
+  Future<int> insertArticle(ArticleModel article)async{
     var database=await db;
     print('inserted');
     return database.insert(kTableName, article.toJson());
@@ -56,6 +56,11 @@ class AppDatabase{
     List<Map<String,Object?>> articles=
     await database.rawQuery('SELECT * FROM $kTableName');
     return articles;
+  }
+
+  Future<int> deleteArticle(int id)async{
+    var database=await db;
+    return database.rawDelete('DELETE FROM $kTableName where id = $id');
   }
 
 

@@ -4,13 +4,14 @@ import 'package:clean_architecture_with_getx/domain/usecases/get_article_usecase
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
+import '../../../data/model/article_model.dart';
 import '../../../domain/entities/article.dart';
 
 class RemoteArticleViewController extends GetxController{
   GetArticlesUseCase _getArticlesUseCase;
   RemoteArticleViewController(this._getArticlesUseCase);
 
-  List<Article>? articles=<Article>[].obs;
+  List<ArticleModel>? articles=<ArticleModel>[].obs;
   RxBool moreData=true.obs;
   int _page=1;
   static const int _pageSize=20;

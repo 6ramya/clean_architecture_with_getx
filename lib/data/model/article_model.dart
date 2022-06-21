@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:clean_architecture_with_getx/data/model/source_model.dart';
 import 'package:clean_architecture_with_getx/domain/entities/article.dart';
 
@@ -43,18 +45,22 @@ class ArticleModel extends Article {
         title: json['title'],
         url: json['url'],
         urlToImage: json['urlToImage'],
-        source:SourceModel.fromJson(json['source'])
+        // source: json['source']
+        //     !=null? json['source'].runtimeType == String?
+        // SourceModel.fromJson(jsonDecode(json['source']))
+        //     :
+        // SourceModel.fromJson(json['source']): null
     );
   }
 
-  // Map<String,dynamic> toJson()=>{
-  //   "description":description,
-  //   "publishedAt":publishedAt,
-  //   "author":author,
-  //   "content":content,
-  //   "title":title,
-  //   "url":url,
-  //   "urlToImage":urlToImage,
-  //   "source":source
-  // };
+  Map<String,dynamic> toJson()=>{
+    "description":description,
+    "publishedAt":publishedAt,
+    "author":author,
+    "content":content,
+    "title":title,
+    "url":url,
+    "urlToImage":urlToImage,
+    "source":jsonEncode(source)
+  };
 }
